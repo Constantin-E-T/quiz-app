@@ -20,13 +20,15 @@ class Quiz {
             }
         }
     }
-
 }
 
 const questions = [
     new Question("What is the capital of France?", { a: "Paris", b: "London", c: "Rome" }, "a"),
     new Question("What is the largest planet in our solar system?", { a: "Earth", b: "Jupiter", c: "Saturn" }, "b"),
-    new Question("What is the most populous country in the world?", { a: "China", b: "India", c: "United States" }, "a")
+    new Question("What is the most populous country in the world?", { a: "China", b: "India", c: "United States" }, "a"),
+    new Question("What is the capital of Italy?", { a: "Paris", b: "London", c: "Rome" }, "c"),
+    new Question("What is the smallest planet in our solar system?", { a: "Mercury", b: "Jupiter", c: "Saturn" }, "a"),
+    new Question("What is the second most populous country in the world?", { a: "China", b: "India", c: "United States" }, "b")
 ];
 const quiz = new Quiz(questions);
 
@@ -35,6 +37,7 @@ const score = document.querySelector("#score");
 
 // Display the first question
 displayQuestion();
+
 function displayQuestion() {
     if (quiz.currentQuestionIndex === quiz.questions.length) {
         questionContainer.innerHTML = `<h3>Game Over!</h3>`;
@@ -64,16 +67,17 @@ function displayQuestion() {
             <button type="button" class="btn btn-primary mr-2" id="answer-${key}" value="${key}">
                 ${currentQuestion.answers[key]}
             </button>
-            `;
-        }
-
-        const buttons = document.querySelectorAll("button");
-        buttons.forEach((button) => {
-            button.addEventListener("click", (e) => {
-                e.preventDefault();
-                quiz.checkAnswer(e.target.value);
-                quiz.currentQuestionIndex++;
-                displayQuestion();
-            });
-        });
+        `;
     }
+
+    const buttons = document.querySelectorAll("button");
+    buttons.forEach((button) => {
+        button.addEventListener("click", (e) => {
+            e.preventDefault();
+            quiz.checkAnswer(e.target.value);
+            quiz.currentQuestionIndex++;
+            displayQuestion();
+        });
+    });
+}
+
