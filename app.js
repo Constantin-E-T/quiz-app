@@ -14,10 +14,13 @@ class Quiz {
     }
 
     checkAnswer(selectedAnswer) {
-        if (this.questions[this.currentQuestionIndex].correctAnswer === selectedAnswer) {
-            this.score++;
+        if(this.currentQuestionIndex < this.questions.length){
+            if (this.questions[this.currentQuestionIndex].correctAnswer === selectedAnswer) {
+                this.score++;
+            }
         }
     }
+
 }
 
 const questions = [
@@ -34,20 +37,24 @@ const score = document.querySelector("#score");
 displayQuestion();
 function displayQuestion() {
     if (quiz.currentQuestionIndex === quiz.questions.length) {
-    questionContainer.innerHTML = `<h3>Game Over!</h3>`;
-    score.textContent = `You got ${quiz.score} out of ${quiz.questions.length} questions correct!`;
-    const playAgainBtn = document.createElement("button");
-    playAgainBtn.classList.add("btn", "btn-primary", "mr-2");
-    playAgainBtn.id = "play-again";
-    playAgainBtn.innerHTML = "Play Again";
-    questionContainer.appendChild(playAgainBtn);
-    playAgainBtn.addEventListener("click", () => {
-    quiz.score = 0;
-    quiz.currentQuestionIndex = 0;
-    questionContainer.innerHTML = "";
-    displayQuestion();
-    });
-    return;
+        questionContainer.innerHTML = `<h3>Game Over!</h3>`;
+        score.textContent = `You got ${quiz.score} out of ${quiz.questions.length} questions correct!`;
+        const playAgainBtn = document.createElement("button");
+        playAgainBtn.classList.add("btn", "btn-primary", "mr-2");
+        playAgainBtn.id = "play-again";
+        playAgainBtn.innerHTML = "Play Again";
+        questionContainer.appendChild(playAgainBtn);
+        playAgainBtn.addEventListener("click", () => {
+            quiz.score = 0;
+            quiz.currentQuestionIndex = 0;
+            questionContainer.innerHTML = "";
+            displayQuestion();
+        });
+        return;
+    }
+
+    if (quiz.currentQuestionIndex >= quiz.questions.length) {
+        return;
     }
     questionContainer.innerHTML = "";
     const currentQuestion = quiz.questions[quiz.currentQuestionIndex];
